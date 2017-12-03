@@ -170,7 +170,7 @@ void WeightedGraph::insertEdge ( const string& v1, const string& v2, int wt ) th
 	if ( retrieveVertex ( v1, retrieved ) && retrieveVertex ( v2, retrieved ) ){
 		setEdge ( getIndex (v1), getIndex (v2), wt );
 		setEdge ( getIndex (v2), getIndex (v1), wt );
-		cout << "Size = " << size << ", idx_v1 = " << getIndex( v1 ) << ", idx_v2 = " << getIndex( v2 ) << endl;
+		cout << "Size = " << size << ", index of sensor_v1 = " << getIndex( v1 ) << ", index of sensor_v2 = " << getIndex( v2 ) << endl;
 	} 
 	
 }
@@ -563,7 +563,8 @@ void WeightedGraph::showStructure () const{
     if ( size == 0 ) {
        cout << "Empty graph" << endl;
     } else {
-       cout << endl << "Vertex list : " << endl;
+       cout << endl << "Sensor list : " << endl;
+	   cout << "Row" << '\t' << "Label" << '\t' << "Energy Level" << endl;
        for ( int row = 0 ; row < size ; row++ )
            cout << row << '\t' << vertexList[row].getLabel()
 #if LAB12_TEST2
