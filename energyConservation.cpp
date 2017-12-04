@@ -47,11 +47,9 @@ int main (){
 		cout << packets[i].energyConsumptionRequired << endl;
 	}
 
-<<<<<<< HEAD
-=======
 	// label the sensor nodes, insert the sensor as a vertex into the graph and set the enery levels of the sensor nodes
     srand(time(0));
->>>>>>> d61a8633fb9435e4bb6120b737e633f2e8e5a084
+
     WeightedGraph::Vertex vertex[20];
     cout << endl << "Sensor edge vertex locations:" << endl;
     for (int i = 0; i < 20; i++){
@@ -71,11 +69,7 @@ int main (){
         }
     }
 
-
-<<<<<<< HEAD
-=======
 	// print the sensor network in a matrix view
->>>>>>> d61a8633fb9435e4bb6120b737e633f2e8e5a084
     network.showStructure(); 
 
 	// print the shortest path route through the network in a matrix view
