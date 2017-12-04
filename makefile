@@ -1,0 +1,20 @@
+CC = g++
+DEBUG = -g
+CFLAGS = -Wall -c
+LFLAGS = -Wall
+
+ECG : ECG.o packet.o weightedGraph.o
+	$(CC) $(LFLAGS) ECG.o packet.o weightedGraph.o -o ECG
+
+ECG.o : energyConservation.cpp 
+	$(CC) $(CFLAGS) energyConservation.cpp
+
+packet.o : packet.h packet.cpp
+	$(CC) $(CFLAGS) packet.cpp
+
+weightedGraph.o : weightedGraph.h weightedGraph.cpp
+	$(CC) $(CFLAGS) weightedGraph.cpp
+
+clean:
+	\rm *.o ECG
+
