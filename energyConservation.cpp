@@ -8,7 +8,7 @@
 
 using namespace std;
 
-// Global Variable
+// Global Variables/Functions
 
 void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet);
 void dijkstra(WeightedGraph::Vertex vertices[], WeightedGraph &net, Packet packet);
@@ -19,14 +19,16 @@ int main (){
     srand(time(0));
 
     // Variables
-    WeightedGraph network(100);
-	Packet *packets = new Packet[5];
+    WeightedGraph network(100); // initialize the sensor network as a weighted graph
+	Packet *packets = new Packet[5]; //initialize an array of 5 packets
 
+	// assign the packets random values for enery consumed per forward
 	for(int i = 0; i < 5; i++){
 		int x = rand() % 10;
 		packets[i].energyConsumptionRequired = x;
 	}
 
+	// randomize a packet source and destination
 	for(int i = 0; i < 5; i++){
 		int src = rand() % 20;
 		int dst = rand() % 20;
@@ -39,11 +41,17 @@ int main (){
 		
 	}
 
+	// print the packets and their respective enery consumption values
 	for(int i = 0; i < 5; i++){
 		cout << "Packet #" << i << " energy consumption per packet hop :";
 		cout << packets[i].energyConsumptionRequired << endl;
 	}
 
+<<<<<<< HEAD
+=======
+	// label the sensor nodes, insert the sensor as a vertex into the graph and set the enery levels of the sensor nodes
+    srand(time(0));
+>>>>>>> d61a8633fb9435e4bb6120b737e633f2e8e5a084
     WeightedGraph::Vertex vertex[20];
     cout << endl << "Sensor edge vertex locations:" << endl;
     for (int i = 0; i < 20; i++){
@@ -54,6 +62,7 @@ int main (){
         network.insertVertex(vertex[i]);
     }
 
+	// insert edges between sensors to simulate a wireless connection between the sensors
     for (int i = 0; i < 20; i++){
         string node1 = to_string(i);
         for (int j = 1; j < 20; j++){
@@ -63,7 +72,13 @@ int main (){
     }
 
 
+<<<<<<< HEAD
+=======
+	// print the sensor network in a matrix view
+>>>>>>> d61a8633fb9435e4bb6120b737e633f2e8e5a084
     network.showStructure(); 
+
+	// print the shortest path route through the network in a matrix view
     network.showShortestPaths();
 
     cout << "SRC: " << packets[0].source << " DST: " << packets[0].dest << endl;
@@ -75,6 +90,7 @@ int main (){
     return 0;
 }
 
+// function to find the maximum power of a sensor node
 int maxPower(int energyRemaining[], bool sptSet[])
 {
 	int max = 0, max_index;
@@ -89,6 +105,7 @@ int maxPower(int energyRemaining[], bool sptSet[])
 	return max_index;
 }
 
+// print the solution for the packets route of least energy consumption from source to dest
 int printSoln(int energyRemaining[], int n)
 {
 	cout << "Energy remaining after packet traversal" << endl;
@@ -96,6 +113,7 @@ int printSoln(int energyRemaining[], int n)
 		cout << i << " " << energyRemaining[i] << endl;
 }
 
+// find the solution for the packets route of least energy consumption from source to dest
 void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet)
 {
 	int energyRemaining[20];
