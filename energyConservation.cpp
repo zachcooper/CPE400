@@ -11,9 +11,12 @@ using namespace std;
 // Global Variable
 
 void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet);
+void dijkstra(WeightedGraph::Vertex vertices[], WeightedGraph &net, Packet packet);
 
 
 int main (){
+
+    srand(time(0));
 
     // Variables
     WeightedGraph network(100);
@@ -41,7 +44,6 @@ int main (){
 		cout << packets[i].energyConsumptionRequired << endl;
 	}
 
-    srand(time(0));
     WeightedGraph::Vertex vertex[20];
     cout << endl << "Sensor edge vertex locations:" << endl;
     for (int i = 0; i < 20; i++){
@@ -61,13 +63,14 @@ int main (){
     }
 
 
-
     network.showStructure(); 
     network.showShortestPaths();
 
     cout << "SRC: " << packets[0].source << " DST: " << packets[0].dest << endl;
 
     findLowestEnergyPath(vertex, packets[0]);
+
+    dijkstra(vertex, network, packets[0]);
 
     return 0;
 }
@@ -104,7 +107,7 @@ void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet)
 		sptSet[i] = false;
 	}
 
-	energyRemaining[packet.source] = 0;
+	//energyRemaining[packet.source] = 0;
 
 	int j = 0, u = -1;
 
@@ -113,6 +116,57 @@ void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet)
 		u = maxPower(energyRemaining, sptSet);
 		vertices[u].setEnergy(vertices[u].getEnergy()-packet.energyConsumptionRequired);
 		cout << "Packet is traveling through vertex: " << u << endl;
+
+		sptSet[u] = true;
+
+		energyRemaining[u] -= packet.energyConsumptionRequired;
+		j++;
+	}
+
+	printSoln(energyRemaining, 20);
+}
+
+int minDistance(WeightedGraph &net, bool sptSet[], int loc)
+{
+	int min = 1000, min_index, weight;
+
+	for(int i = 0; i < 20; i++)
+	{
+
+		net.getEdgeWeight(to_string(loc), to_string(i), weight);
+		if(sptSet[i] == false && weight <= min)
+		{
+			min = weight, min_index = i;
+		}
+	}
+	return min_index;
+}
+
+void dijkstra(WeightedGraph::Vertex vertices[], WeightedGraph &net, Packet packet)
+{
+
+	int energyRemaining[20];
+	int dist[20];
+	bool sptSet[20];
+
+	for(int i = 0; i < 20; i++)
+	{
+		dist[i] = 1000;
+		energyRemaining[i] = vertices[i].getEnergy();
+		sptSet[i] = false;
+	}
+
+	dist[packet.source] = 0;
+
+	//energyRemaining[packet.source] = 0;
+
+	int j = 0, u = -1;
+
+	while(j < 19 && u != packet.dest)
+	{
+		u = minDistance(net, sptSet, j);
+		vertices[u].setEnergy(vertices[u].getEnergy()-packet.energyConsumptionRequired);
+		cout << "Dijkstra Packet is traveling through vertex: " << u << endl;
 
 		sptSet[u] = true;
 
