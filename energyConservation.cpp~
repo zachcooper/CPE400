@@ -69,6 +69,7 @@ int main (){
 
     findLowestEnergyPath(vertex, packets[0]);
 
+    cout << "ENERGY" << vertex[6].getEnergy() << endl;
     return 0;
 }
 
