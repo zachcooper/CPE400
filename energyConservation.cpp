@@ -74,13 +74,15 @@ int main (){
 
 	// print the shortest path route through the network in a matrix view
     network.showShortestPaths();
+       
+    for (int i = 0; i < 5; i++){
+        cout << "SRC: " << packets[i].source << " DST: " << packets[i].dest << endl;
+    
 
-    cout << "SRC: " << packets[0].source << " DST: " << packets[0].dest << endl;
+    findLowestEnergyPath(vertex, packets[i]);
 
-    findLowestEnergyPath(vertex, packets[0]);
-
-    dijkstra(vertex, network, packets[0]);
-
+    dijkstra(vertex, network, packets[i]);
+}
     return 0;
 }
 
@@ -102,9 +104,15 @@ int maxPower(int energyRemaining[], bool sptSet[])
 // print the solution for the packets route of least energy consumption from source to dest
 int printSoln(int energyRemaining[], int n)
 {
+
+    int totalEnergyRemaining = 0;
 	cout << "Energy remaining after packet traversal" << endl;
 	for(int i = 0; i < 20; i++)
 		cout << i << " " << energyRemaining[i] << endl;
+	for(int i = 0; i < 20; i++)
+		totalEnergyRemaining += energyRemaining[i];
+    cout << "Total Energy Remaing: " << totalEnergyRemaining << endl << endl;
+
 }
 
 // find the solution for the packets route of least energy consumption from source to dest
