@@ -113,16 +113,9 @@ int printSoln(int energyRemaining[], int n)
 	cout << "Energy remaining after packet traversal" << endl;
 	for(int i = 0; i < 20; i++){
 		cout << i << " " << energyRemaining[i] << endl;
-    if (energyRemaining[i] < 30)
-        cout << "_____________THREASHHOLD_____________________" << endl;
-}
 	for(int i = 0; i < 20; i++)
 		totalEnergyRemaining += energyRemaining[i];
     cout << "Total Energy Remaing: " << totalEnergyRemaining << endl << endl;
-
-    if (totalEnergyRemaining < 1200){}
-   // cout << "_____________THREASH__________________" << endl;
-
 }
 
 // find the solution for the packets route of least energy consumption from source to dest
