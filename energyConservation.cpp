@@ -79,10 +79,10 @@ int main (){
         cout << "SRC: " << packets[i].source << " DST: " << packets[i].dest << endl;
     
 
-    findLowestEnergyPath(vertex, packets[i]);
+        findLowestEnergyPath(vertex, packets[i]);
 
-    dijkstra(vertex, network, packets[i]);
-}
+        dijkstra(vertex, network, packets[i]);
+    }
     return 0;
 }
 
@@ -111,11 +111,17 @@ int printSoln(int energyRemaining[], int n)
 
     int totalEnergyRemaining = 0;
 	cout << "Energy remaining after packet traversal" << endl;
-	for(int i = 0; i < 20; i++)
+	for(int i = 0; i < 20; i++){
 		cout << i << " " << energyRemaining[i] << endl;
+    if (energyRemaining[i] < 30)
+        cout << "_____________THREASHHOLD_____________________" << endl;
+}
 	for(int i = 0; i < 20; i++)
 		totalEnergyRemaining += energyRemaining[i];
     cout << "Total Energy Remaing: " << totalEnergyRemaining << endl << endl;
+
+    if (totalEnergyRemaining < 1200){}
+   // cout << "_____________THREASH__________________" << endl;
 
 }
 
@@ -125,7 +131,7 @@ void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet)
 	/* initialize array to track the energy remaining for the nodes and a bool
 	array to keep track of whether or not one has already been visited to
 	avoid infinite loops*/
-	int energyRemaining[20];
+	int energyRemaining[20], tickCount = 0;;
 	bool sptSet[20];
 
 	/* iterate through and initialize energy remaining with current energy existing
@@ -153,7 +159,9 @@ void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet)
 
 		energyRemaining[u] -= packet.energyConsumptionRequired;
 		j++;
+        tickCount++;
 	}
+    cout << endl << "Time ticks: " << tickCount << endl << "Total time: " << tickCount * 500 << "ms" << endl << endl;
 
 	// print the energy remaining in each node and the system overall
 	printSoln(energyRemaining, 20);
@@ -189,7 +197,7 @@ void dijkstra(WeightedGraph::Vertex vertices[], WeightedGraph &net, Packet packe
 	/* arrays initialized to keep track of energy remaining in each node, as well as the
 	distance from one node to another, and a bool array to keep track of if a vertex has
 	been visited */
-	int energyRemaining[20];
+	int energyRemaining[20], tickCount = 0;
 	int dist[20];
 	bool sptSet[20];
 
@@ -221,7 +229,9 @@ void dijkstra(WeightedGraph::Vertex vertices[], WeightedGraph &net, Packet packe
 
 		energyRemaining[u] -= packet.energyConsumptionRequired;
 		j++;
+        tickCount++;
 	}
+    cout << endl << "Time ticks: " << tickCount << endl << "Total time: " << tickCount * 500 << "ms" << endl << endl;
 
 	//print the energy remaining in the nodes and the network overall
 	printSoln(energyRemaining, 20);
