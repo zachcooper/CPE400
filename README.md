@@ -1,4 +1,8 @@
 # CPE 400: Energy Conservation Routing Protocol
+Zach Cooper (CSE undergraduate University of Nevada, Reno)
+Roniel Padua (CSE undergraduate University of Nevada, Reno)
+Austin Ogilvie (CSE undergraduate University of Nevada, Reno)
+
 In this project, a simulation is created of a network with sensor nodes. This is implemented as a graph in our code. The weights of edges as well as the energy existing on a vertex is randomized each time the program is run. There also exists a packet object and these are created with their own random source and destinations, as well as cost for sending. We have implemented an energy conservation routing protocol that uses this graph and will find the best route that will conserve the most energy through each iteration for each packet. Conversely, there is a path-finding method implemented using Dijkstra's algrorithm for comparison purposes to prove that our algorithm is more efficient at conserving energy throughout the system, allowing for it to stay online longer.  
 
 # Dependencies, Building, and Running

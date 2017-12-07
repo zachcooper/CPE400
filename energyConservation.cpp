@@ -77,7 +77,6 @@ int main (){
        
     for (int i = 0; i < 5; i++){
         cout << "SRC: " << packets[i].source << " DST: " << packets[i].dest << endl;
-    
 
         findLowestEnergyPath(vertex, packets[i], network);
 
@@ -89,7 +88,7 @@ int main (){
 // function to find the maximum power of a sensor node
 int maxPower(int energyRemaining[], bool sptSet[])
 {
-	int max = 0, max_index = 0;
+	int max = 0, max_index;
 
 	// loop through the vertices and if the remaining energy on a vertex
 	// is higher than the current max, then save it to the max variable
@@ -140,6 +139,10 @@ void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet, Weigh
 
 	int j = 0, u = -1;
 
+    // save current network
+    WeightedGraph tempNetwork(100);
+    tempNetwork = network;
+
 	/* for each vertex, loop through the vertices and find the adjacent vertex
 	with the highest energy remaining */
 	while(j < 19 && u != packet.dest)
@@ -159,7 +162,11 @@ void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet, Weigh
             network.removeVertex(vertices[u].getLabel());
             cout << "Sensor node offline" << endl;
         }
-	}
+	}   
+    
+    // revert network back to original state
+    network = tempNetwork;
+
     cout << endl << "Time ticks: " << tickCount << endl << "Total time: " << tickCount * 500 << "ms" << endl << endl;
 
 	// print the energy remaining in each node and the system overall

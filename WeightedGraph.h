@@ -39,7 +39,8 @@ class WeightedGraph
       private:
 	string label;   // Vertex label
 	char color;
-    int energy, minimum_power = 50;
+    int energy;
+    int minimum_power = 50;
     };
 
     //--------------------------------------------------------------------
