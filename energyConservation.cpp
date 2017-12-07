@@ -10,7 +10,7 @@ using namespace std;
 
 // Global Variables/Functions
 
-void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet);
+void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet, WeightedGraph& network);
 void dijkstra(WeightedGraph::Vertex vertices[], WeightedGraph &net, Packet packet);
 
 
@@ -79,7 +79,7 @@ int main (){
         cout << "SRC: " << packets[i].source << " DST: " << packets[i].dest << endl;
     
 
-        findLowestEnergyPath(vertex, packets[i]);
+        findLowestEnergyPath(vertex, packets[i], network);
 
         dijkstra(vertex, network, packets[i]);
     }
@@ -89,7 +89,7 @@ int main (){
 // function to find the maximum power of a sensor node
 int maxPower(int energyRemaining[], bool sptSet[])
 {
-	int max = 0, max_index;
+	int max = 0, max_index = 0;
 
 	// loop through the vertices and if the remaining energy on a vertex
 	// is higher than the current max, then save it to the max variable
@@ -111,7 +111,7 @@ int printSoln(int energyRemaining[], int n)
 
     int totalEnergyRemaining = 0;
 	cout << "Energy remaining after packet traversal" << endl;
-	for(int i = 0; i < 20; i++){
+	for(int i = 0; i < 20; i++)
 		cout << i << " " << energyRemaining[i] << endl;
 	for(int i = 0; i < 20; i++)
 		totalEnergyRemaining += energyRemaining[i];
@@ -119,7 +119,7 @@ int printSoln(int energyRemaining[], int n)
 }
 
 // find the solution for the packets route of least energy consumption from source to dest
-void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet)
+void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet, WeightedGraph& network)
 {
 	/* initialize array to track the energy remaining for the nodes and a bool
 	array to keep track of whether or not one has already been visited to
@@ -151,8 +151,14 @@ void findLowestEnergyPath(WeightedGraph::Vertex vertices[], Packet packet)
 		sptSet[u] = true;
 
 		energyRemaining[u] -= packet.energyConsumptionRequired;
+
 		j++;
         tickCount++;
+
+        if (vertices[u].getEnergy() <= vertices[u].getMinPower()){
+            network.removeVertex(vertices[u].getLabel());
+            cout << "Sensor node offline" << endl;
+        }
 	}
     cout << endl << "Time ticks: " << tickCount << endl << "Total time: " << tickCount * 500 << "ms" << endl << endl;
 

@@ -9,6 +9,7 @@ struct Packet{
 	int energyConsumptionRequired;
 	int source;//source;
 	int dest;//destination;
+    bool isOnline = true;
 };
 
 

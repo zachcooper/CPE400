@@ -34,11 +34,12 @@ class WeightedGraph
 	char getColor() const { return color; }
     int getEnergy()  const { return energy; }
     void setEnergy(int nodeEnergy) { energy = nodeEnergy; }
+    int getMinPower() {return minimum_power; }
 
       private:
 	string label;   // Vertex label
 	char color;
-    int energy;
+    int energy, minimum_power = 50;
     };
 
     //--------------------------------------------------------------------
